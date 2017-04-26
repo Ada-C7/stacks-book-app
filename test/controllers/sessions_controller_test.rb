@@ -7,6 +7,26 @@ describe SessionsController do
 
   describe "auth_callback" do
 
+    it "Cannot login without a valid Auth_Hash" do
+
+      OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new({})
+      proc {
+        # Get the callback path for github
+        # Will call the `create` action in `SessionsController`
+        get auth_github_callback_path
+
+        # Check for redirection
+        must_redirect_to root_path
+
+        # Check that session was set
+        session[:user_id].must_equal nil
+        flash[:error].must_equal "Could not log in."
+
+        # Check that a new user wasn't created
+      }.must_change 'User.count', 0
+
+    end
+
     it "Can login an existing user" do
       # Get a user from Fixtures
       user = users(:kari)
