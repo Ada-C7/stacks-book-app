@@ -22,6 +22,14 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def login_user(user)
+
+    # Set the "Fake or mock" Auth Hash for Github
+    OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(user))
+
+    get auth_github_callback_path
+  end
+
   def mock_auth_hash(user)
      {
       provider: user.provider,
