@@ -19,7 +19,7 @@ describe SessionsController do
         must_redirect_to root_path
 
         # Check that session was set
-        session[:user_id].must_equal nil
+        session[:user_id].must_be_nil
         flash[:error].must_equal "Could not log in."
 
         # Check that a new user wasn't created

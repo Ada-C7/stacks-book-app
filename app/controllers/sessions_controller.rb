@@ -8,18 +8,9 @@ class SessionsController < ApplicationController
     # Should probably use the nickname and email fields as well
     user = User.find_by(uid: auth_hash["uid"], provider: auth_hash["provider"])
 
-    puts "====================="
-    puts "user: #{user}"
-    puts "====================="
-
     # if its not there (in the DB) then make/save it
     if user.nil?
       user = User.create_from_github(auth_hash)
-      puts "====================="
-      puts "user from github: #{user}"
-      puts "Auth hash #{auth_hash}"
-      puts "====================="
-
 
       if user.nil?
         flash[:error] = "Could not log in."
