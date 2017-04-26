@@ -1,0 +1,12 @@
+
+kari:
+    provider: github
+    uid: 11111
+    email: kari@adadevelopersacademy.org
+    name: kari
+
+dan:
+    provider: github
+    uid: 22222
+    email: dan@adadevelopersacademy.org
+    name: dan_the_man

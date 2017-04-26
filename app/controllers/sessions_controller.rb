@@ -2,13 +2,10 @@ class SessionsController < ApplicationController
   skip_before_action :require_login, only: [:create]
 
   def create
-    puts "======================"
-    puts "In create"
-    puts "======================"
-
 
     auth_hash = request.env['omniauth.auth']
 
+    # Should probably use the nickname and email fields as well
     user = User.find_by(uid: auth_hash["uid"], provider: auth_hash["provider"])
 
     # if its not there (in the DB) then make/save it
